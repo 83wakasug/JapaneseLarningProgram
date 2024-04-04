@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using System;
 
 public class GameManager1 : MonoBehaviour {
 
-public AudioClip a;
-public AudioClip i;
-public AudioClip u;
-public AudioClip e;
-public AudioClip o;
-
+   
+   
+public AudioSource soundPlayer;
 public GameObject Box;
 public ShowTextonButton kana;
-    public RectTransform parent;
+public RectTransform parent;
+public GameObject parentObject;
+public List<AudioClip> sounds;
 
-    public GameObject parentObject;
 
 
-List<string> hiragana = new List<string>();
+
+    List<string> hiragana = new List<string>();
 List<string> katakana = new List<string>();
     public void HiraganaList()
     {
@@ -148,21 +147,45 @@ List<string> katakana = new List<string>();
 
     void Start()
     {
-         KatakanaList();
-        for (int i = 0; i < 50; i++)
+        soundPlayer = GetComponent<AudioSource>();
+        KatakanaList();
+      
+        
+
+        for (int i = 0; i<katakana.Count; i++)
         {
             GameObject button = Instantiate(Box, parentObject.GetComponent<RectTransform>());
-
             button.GetComponent<ShowTextonButton>().setText(katakana[i]);
+            int index = i;
+            button.GetComponent<Button>().onClick.RemoveAllListeners();
+            button.GetComponent<Button>().onClick.AddListener(() => { OnButtonClick(index); });
            
+
         }
 
     }
 
+    void OnButtonClick(int index)
+    {
+       
 
-// Update is called once per frame
+        SoundController(index);  // SoundPlayerから音声を再生する
+    }
+
+    public void SoundController(int index)
+    {
+        AudioClip sound = sounds[index];
+        PlaySound(sound);
+    }
+    // Update is called once per frame
     void Update()
     {
+        
+    }
 
+    public void PlaySound(AudioClip audio)
+    {
+        soundPlayer.clip = audio;
+        soundPlayer.Play();
     }
 }
