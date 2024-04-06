@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
-public class GameManager1 : MonoBehaviour {
+public class GameManagerH : MonoBehaviour
+{
 
-   
-   
-public AudioSource soundPlayer;
-public GameObject Box;
-public ShowTextonButton kana;
-public RectTransform parent;
-public GameObject parentObject;
-public List<AudioClip> sounds;
+
+    public AudioSource soundPlayer;
+    public GameObject Box;
+    public ShowTextonButton kana;
+    public RectTransform parent;
+    public GameObject parentObject;
+    public List<AudioClip> sounds;
 
 
 
 
     List<string> hiragana = new List<string>();
-List<string> katakana = new List<string>();
+ 
     public void HiraganaList()
     {
 
@@ -80,85 +79,25 @@ List<string> katakana = new List<string>();
         hiragana.Add("");
 
     }
-    public void KatakanaList()
-    {
-
-        katakana.Add("ア");//1
-        katakana.Add("イ");//2
-        katakana.Add("ウ");//3
-        katakana.Add("エ");//4
-        katakana.Add("オ");//5
-        katakana.Add("カ");//6
-        katakana.Add("キ");//7
-        katakana.Add("ク");//8
-        katakana.Add("ケ");//9
-        katakana.Add("コ");//10
-        katakana.Add("サ");//11
-        katakana.Add("シ");//12
-        katakana.Add("ス");//13
-        katakana.Add("セ");//14
-        katakana.Add("ソ");//15
-        katakana.Add("タ");//16
-        katakana.Add("チ");//17
-        katakana.Add("ツ");//18
-        katakana.Add("テ");//19
-        katakana.Add("ト");//20
-        katakana.Add("ナ");//21
-        katakana.Add("ニ");//22
-        katakana.Add("ヌ");//23
-        katakana.Add("ネ");//24
-        katakana.Add("ノ");//25
-        katakana.Add("ハ");//26
-        katakana.Add("ヒ");//27
-        katakana.Add("フ");//28
-        katakana.Add("ヘ");//29
-        katakana.Add("ホ");//30
-        katakana.Add("マ");//31
-        katakana.Add("ミ");//32
-        katakana.Add("ム");//33
-        katakana.Add("メ");//34
-        katakana.Add("モ");//35
-        katakana.Add("ヤ");//36
-        katakana.Add("");
-        katakana.Add("ユ");//37
-        katakana.Add("");
-        katakana.Add("ヨ");//38
-        katakana.Add("ラ");//39
-        katakana.Add("リ");//40
-        katakana.Add("ル");//41
-        katakana.Add("レ");//42
-        katakana.Add("ロ");//43
-        katakana.Add("ワ");//44
-        katakana.Add("");
-        katakana.Add("");
-        katakana.Add("");
-        katakana.Add("ヲ");//45
-        katakana.Add("ン");//46
-        katakana.Add("");
-        katakana.Add("");
-        katakana.Add("");
-        katakana.Add("");
-
-    }
-
+ 
 
 
 
     void Start()
     {
         soundPlayer = GetComponent<AudioSource>();
-        KatakanaList();
-      
-        
+        HiraganaList();
 
-        for (int i = 0; i<katakana.Count; i++)
+
+
+        for (int i = 0; i < hiragana.Count; i++)
         {
             GameObject button = Instantiate(Box, parentObject.GetComponent<RectTransform>());
-            button.GetComponent<ShowTextonButton>().setText(katakana[i]);
+            button.GetComponent<ShowTextonButton>().setText(hiragana[i]);
             int index = i;
             button.GetComponent<Button>().onClick.RemoveAllListeners();
             button.GetComponent<Button>().onClick.AddListener(() => { OnButtonClick(index); });
-           
+
 
         }
 
@@ -166,7 +105,7 @@ List<string> katakana = new List<string>();
 
     void OnButtonClick(int index)
     {
-       
+
 
         SoundController(index);  // SoundPlayerから音声を再生する
     }
@@ -179,7 +118,7 @@ List<string> katakana = new List<string>();
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PlaySound(AudioClip audio)
@@ -188,3 +127,5 @@ List<string> katakana = new List<string>();
         soundPlayer.Play();
     }
 }
+
+

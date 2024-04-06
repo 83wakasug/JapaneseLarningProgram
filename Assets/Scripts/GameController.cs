@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
      
     }
 
-    public void HiraKatanaList()
+    public Dictionary<string, string> HiraKatanaList()
     {
         Dictionary<string, string> HiraKata = new Dictionary<string, string>();
         HiraKata.Add("あ", "ア");//1
@@ -85,19 +85,23 @@ public class GameController : MonoBehaviour
         HiraKata.Add("を", "ヲ");//45
         HiraKata.Add("ん", "ン");//46
         hiraganaKatakanaList = HiraKata;
+
+        return hiraganaKatakanaList;
     }
 
-    public void getRandomHiragana()
+    public string getRandomHiragana(int count)
     {
         //Get Random Key
-        int randomIndex = UnityEngine.Random.Range(0, hiraganaKatakanaList.Count);
+        int randomIndex = UnityEngine.Random.Range(0, count);
         string randomKey = hiraganaKatakanaList.Keys.ElementAt(randomIndex);
 
         hiragana = randomKey;
+
+        return hiragana;
     }
 
 
-    public HashSet<string> setKatakanaList()
+    public HashSet<string> setKatakanaList(int count)
     {
 
 
@@ -105,7 +109,7 @@ public class GameController : MonoBehaviour
         while (list.Count < 5)
         {
             //Get Random Key
-            int randomIndex = UnityEngine.Random.Range(0, hiraganaKatakanaList.Count);
+            int randomIndex = UnityEngine.Random.Range(0,count );
             string randomValue = hiraganaKatakanaList.Values.ElementAt(randomIndex);
 
             list.Add(randomValue);
@@ -118,7 +122,7 @@ public class GameController : MonoBehaviour
     public int SetAnswer()
     {
         string answer = hiraganaKatakanaList[hiragana];
-        katakanaList = setKatakanaList().ToList();
+        katakanaList = setKatakanaList(hiraganaKatakanaList.Count).ToList();
 
         int index;
 
@@ -136,15 +140,15 @@ public class GameController : MonoBehaviour
             index = randomIndex;
         }
 
-        Debug.Log(index);
+     
 
         return index;
         
     }
 
     public void setUpValues() {
-        getRandomHiragana();
-        setKatakanaList();
+        getRandomHiragana(hiraganaKatakanaList.Count);
+        setKatakanaList(hiraganaKatakanaList.Count);
          index=SetAnswer();
         
         Choice1.setText(katakanaList[0]);
