@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager4 : MonoBehaviour
 {
     public static GameManager4 instance;
 
+    public Boolean answer;
+    public TMP_Text hiraganaObject;
     public int score;
-    public List<GameObject> fallingObjects;
+    public GameObject fallingObjects;
     public float delayBetweenSpawns = 2f;
     public TMP_Text scoreText;
     private float height;
@@ -22,6 +25,8 @@ public class GameManager4 : MonoBehaviour
     private List<string> list;
     PanelOpener PanelMessage;
     int index;
+ 
+    public GameObject button;
 
     void Awake()
     {
@@ -40,24 +45,35 @@ public class GameManager4 : MonoBehaviour
     {
         print(width);
         score = 0;
-        StartCoroutine(SpawnKatakana());
+        SettingUpKatakana();
+      
+        StartCoroutine(SpawnKatakana2(1));
+        StartCoroutine(SpawnKatakana2(2));
+        StartCoroutine(SpawnKatakana2(3));
+        StartCoroutine(SpawnKatakana2(0));
+        
     }
 
 
     Vector2 GetSpawnLocation()
     {
         float x = UnityEngine.Random.Range(-width / 2 + 1, width / 2 - 1);
+        Debug.Log(x);
+        Debug.Log(width);
         return new Vector2(x, 6.54f);
     }
 
 
-    IEnumerator SpawnKatakana()
+    
+    IEnumerator SpawnKatakana2(int index)
     {
         while (true)
         {
-            int index = UnityEngine.Random.Range(0, fallingObjects.Count);
-            Instantiate(fallingObjects[index], GetSpawnLocation(), Quaternion.identity);
-            yield return new WaitForSeconds(delayBetweenSpawns);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(delayBetweenSpawns, delayBetweenSpawns * 5));
+            GameObject obj=Instantiate(fallingObjects, GetSpawnLocation(), Quaternion.identity);
+            obj.GetComponent<ShowTextonButton>().setText(list[index]);
+            
+            
         }
     }
 
@@ -67,20 +83,29 @@ public class GameManager4 : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
-    private void settingUp() {
+    private void SettingUpKatakana() {
+        gameContoller = new GameController();
+       
          HiraganaKatakanaList=gameContoller.HiraKatanaList();
 
         randomHiragana = gameContoller.getRandomHiragana(HiraganaKatakanaList.Count);
+        Debug.Log(randomHiragana);
+        hiraganaObject.text = randomHiragana.ToString();
+        Debug.Log(hiraganaObject.text + "text");
+
         katakanaList = gameContoller.setKatakanaList(HiraganaKatakanaList.Count);
         SetAnswer(randomHiragana, katakanaList);
-
-        PanelMessage.setCorrectIndex(index);
+        // setKatakanaToFallingObject();
+      
 
     }
+
+    
 
     public int SetAnswer(string rondomHiragana, HashSet<string> katakanaList)
     {
         string answer = HiraganaKatakanaList[randomHiragana];
+        
         int index;
         list = katakanaList.ToList();
 
@@ -102,5 +127,7 @@ public class GameManager4 : MonoBehaviour
         return index;
 
     }
+
+
 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class FallingObject : MonoBehaviour
     private Transform transform1;
     private SpriteRenderer sr;
     public int point;
+    public Boolean answer;
     public float speed = 0.02f;
     Vector2 endPos;
     // Start is called before the first frame update

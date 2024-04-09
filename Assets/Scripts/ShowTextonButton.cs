@@ -10,13 +10,14 @@ public class ShowTextonButton : MonoBehaviour
 
     public string character;
     public TMP_Text randomText;
-    
 
-    public void setText(string character) {
+      public void setText(string character) {
         this.character = character;
         randomText.text = character;
+       // randomText.text = character;
     }
 
-    
-        
+
+ 
+
 }
