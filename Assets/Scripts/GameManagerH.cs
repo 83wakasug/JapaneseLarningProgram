@@ -13,7 +13,8 @@ public class GameManagerH : MonoBehaviour
     public RectTransform parent;
     public GameObject parentObject;
     public List<AudioClip> sounds;
-
+    public float width;
+    public CanvasScaler scaler;
 
 
 
@@ -79,8 +80,13 @@ public class GameManagerH : MonoBehaviour
         hiragana.Add("");
 
     }
- 
 
+  /*  private void Awake()
+    {
+        height = 2 * Camera.main.orthographicSize;
+        width = height * Camera.main.aspect;
+
+    }*/
 
 
     void Start()
@@ -100,7 +106,21 @@ public class GameManagerH : MonoBehaviour
 
 
         }
+        settingupSize();
+    }
 
+    public void settingupSize() {
+
+        int width = Screen.currentResolution.width;
+        int height = Screen.currentResolution.height;
+        Debug.Log(height);
+        scaler.scaleFactor = height / 1080;
+        Debug.Log(scaler.scaleFactor);
+        RectTransform rect = this.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(width, height);
+        Debug.Log(height);
+
+    
     }
 
     void OnButtonClick(int index)

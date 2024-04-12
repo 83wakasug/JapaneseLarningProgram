@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+
 
 public class GameManager1 : MonoBehaviour {
 
@@ -14,11 +14,9 @@ public ShowTextonButton kana;
 public RectTransform parent;
 public GameObject parentObject;
 public List<AudioClip> sounds;
+public CanvasScaler scaler;
 
-
-
-
-    List<string> hiragana = new List<string>();
+List<string> hiragana = new List<string>();
 List<string> katakana = new List<string>();
     public void HiraganaList()
     {
@@ -161,6 +159,18 @@ List<string> katakana = new List<string>();
            
 
         }
+
+    }
+    public void settingupSize()
+    {
+
+        int width = Screen.currentResolution.width;
+        int height = Screen.currentResolution.height;
+        scaler.scaleFactor = height / 1080;
+
+        RectTransform rect = this.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(width, height);
+
 
     }
 

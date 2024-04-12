@@ -35,14 +35,17 @@ public class PanelOpener : MonoBehaviour
         if (buttonIndex == num)
         {
 
-            resultText.text = "せいかいです！　よくできました◎";
+            resultText.text = "せいかいです◎";
 
         }
         else
         {
-            resultText.text = "まちがっています×　もういちどちょうせんしよう！";
+            resultText.text = "まちがっています×！";
         }
 
 
     }
+
+
+ 
 }

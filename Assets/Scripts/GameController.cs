@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instans;
     public ShowTextonButton Choice1;
     public ShowTextonButton Choice2;
     public ShowTextonButton Choice3;
@@ -19,11 +22,14 @@ public class GameController : MonoBehaviour
     private Dictionary<string, string> hiraganaKatakanaList;
     private List<string> katakanaList;
     private int index;
+    public CanvasScaler scaler;
     // Start is called before the first frame update
     void Start(){
         HiraKatanaList();
         setUpValues();
-        
+        settingupSize();
+
+
     }
 
     // Update is called once per frame
@@ -33,6 +39,30 @@ public class GameController : MonoBehaviour
             setUpValues();
         }
      
+    }
+
+    void Awake()
+    {
+        if (GameController.instans != null)
+        {
+            Destroy(gameObject);
+        }
+        instans = this;
+
+
+    }
+
+    public void settingupSize()
+    {
+
+        int width = Screen.currentResolution.width;
+        int height = Screen.currentResolution.height;
+        scaler.scaleFactor = height / 1080;
+
+        RectTransform rect = this.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(width, height);
+
+
     }
 
     public Dictionary<string, string> HiraKatanaList()

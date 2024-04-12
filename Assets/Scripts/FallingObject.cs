@@ -9,8 +9,9 @@ public class FallingObject : MonoBehaviour
     private Transform transform1;
     private SpriteRenderer sr;
     public int point;
-    public Boolean answer;
-    public float speed = 0.02f;
+    public bool answer;
+    public float speed = 1f;
+    public int heart;
     Vector2 endPos;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class FallingObject : MonoBehaviour
         }
         transform.position = targetPosition;
         Destroy(gameObject);
+    }
+
+    public void setTrue() { 
+      answer = true;
     }
 
 }
