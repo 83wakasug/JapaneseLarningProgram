@@ -28,7 +28,7 @@ public class GameManager4 : MonoBehaviour
     private HashSet<string> katakanaList;
     private List<string> list;
     public GameObject panel;
-    int index;
+    int answerIndex;
     public TMP_Text gameOverMessage;
     bool activ;
 
@@ -38,10 +38,14 @@ public class GameManager4 : MonoBehaviour
     {
         if (GameManager4.instance != null)
         {
+           // If an instance exists, destroy this GameObject
             Destroy(gameObject);
         }
+       
+        // Set this instance as the active instance
         instance = this;
 
+        // Calculate the height and width of the game area based on the camera's orthographic size and aspect ratio
         height = 2 * Camera.main.orthographicSize;
         width = height * Camera.main.aspect;
 
@@ -62,7 +66,7 @@ public class GameManager4 : MonoBehaviour
 
     }
 
-
+    // Get a random spawn location within the game area
     Vector2 GetSpawnLocation()
     {
         float x = UnityEngine.Random.Range(-width / 2 + 1, width / 2 - 1);
@@ -71,7 +75,8 @@ public class GameManager4 : MonoBehaviour
     }
 
 
-    
+
+    // Coroutine to spawn falling objects
     IEnumerator SpawnKatakana2()
     {
 
@@ -82,8 +87,17 @@ public class GameManager4 : MonoBehaviour
             index = UnityEngine.Random.Range(0, 5);
             
             yield return new WaitForSeconds(UnityEngine.Random.Range(delayBetweenSpawns, delayBetweenSpawns * 2));
+
             GameObject obj=Instantiate(fallingObjects, GetSpawnLocation(), Quaternion.identity);
+            int count = 0;
+            if (count <= 5) {
+                obj.GetComponent<ShowTextonButton>().setText(list[answerIndex]);
+                count = 0;
+            }
             obj.GetComponent<ShowTextonButton>().setText(list[index]);
+
+            count = count + 1;
+           
             if (list[index] == answer) {
 
                 obj.GetComponent<FallingObject>().setTrue();
@@ -92,7 +106,8 @@ public class GameManager4 : MonoBehaviour
            
         }
     }
-
+    
+    // Add points to the game score
     public void AddScore(int point)
     {
         if (heart != 0)
@@ -102,6 +117,7 @@ public class GameManager4 : MonoBehaviour
         }
     }
 
+    // Set up a new set of Katakana characters
     public void SettingUpKatakana() {
 
 
@@ -116,13 +132,13 @@ public class GameManager4 : MonoBehaviour
       
 
     }
-
+    // Start spawning falling objects
     public void cloneFallingObject() {
   
         StartCoroutine(SpawnKatakana2());
     }
 
-
+    // Remove a heart from the game
     public void removeHeart(int heartindex) {
     
 
@@ -139,7 +155,7 @@ public class GameManager4 : MonoBehaviour
         
     }
 
-
+    // Check if the answer provided by the player is correct
 
     public Boolean judgeAnswer() {
         if (fallingObjects.GetComponent<TMP_Text>().text != answer) {
@@ -152,7 +168,7 @@ public class GameManager4 : MonoBehaviour
         return true;
     }
 
-
+    // Set the correct answer and return its index
     public int SetAnswer(string rondomHiragana, HashSet<string> katakanaList)
     {
          answer = HiraganaKatakanaList[randomHiragana];
@@ -163,7 +179,7 @@ public class GameManager4 : MonoBehaviour
         if (list.Contains(answer))
         {
             // 正解が含まれている場合、そのインデックスを取得
-           index = list.IndexOf(answer);
+            answerIndex = list.IndexOf(answer);
         }
         else
         {
@@ -171,11 +187,11 @@ public class GameManager4 : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, katakanaList.Count);
             list[randomIndex] = answer;
 
-            index = randomIndex;
+            answerIndex = randomIndex;
         }
 
 
-        return index;
+        return answerIndex;
 
     }
 
