@@ -13,7 +13,7 @@ public class GameManager4 : MonoBehaviour
     public GameObject player;
     public int heartRemain;
     public List<GameObject> Herats;
-    //public int heart =2;
+    private int heart =2;
     public String answer;
     public TMP_Text hiraganaObject;
     public int score;
@@ -66,8 +66,7 @@ public class GameManager4 : MonoBehaviour
     Vector2 GetSpawnLocation()
     {
         float x = UnityEngine.Random.Range(-width / 2 + 1, width / 2 - 1);
-        Debug.Log(x);
-        Debug.Log(width);
+       
         return new Vector2(x, 6.54f);
     }
 
@@ -96,21 +95,24 @@ public class GameManager4 : MonoBehaviour
 
     public void AddScore(int point)
     {
-        score += point;
-        scoreText.text = score.ToString();
+        if (heart != 0)
+        {
+            score += point;
+            scoreText.text = score.ToString();
+        }
     }
 
     public void SettingUpKatakana() {
 
 
         randomHiragana = gameContoller.getRandomHiragana(HiraganaKatakanaList.Count);
-        Debug.Log(randomHiragana);
+    
         hiraganaObject.text = randomHiragana.ToString();
-        Debug.Log(hiraganaObject.text + "text");
+ 
 
         katakanaList = gameContoller.setKatakanaList(HiraganaKatakanaList.Count);
         SetAnswer(randomHiragana, katakanaList);
-        // setKatakanaToFallingObject();
+        
       
 
     }
@@ -121,12 +123,12 @@ public class GameManager4 : MonoBehaviour
     }
 
 
-    public void removeHeart(int heart) {
+    public void removeHeart(int heartindex) {
+    
 
+            GameObject image = Herats[heartindex];
+            image.SetActive(false);
         
-        GameObject image = Herats[heart];
-        image.SetActive(false);
-
     }
 
     public void gameOver() {
@@ -141,6 +143,10 @@ public class GameManager4 : MonoBehaviour
 
     public Boolean judgeAnswer() {
         if (fallingObjects.GetComponent<TMP_Text>().text != answer) {
+            if (heart !< 0)
+            {
+                heart = heart - 1;
+            }
             return false;
         }
         return true;

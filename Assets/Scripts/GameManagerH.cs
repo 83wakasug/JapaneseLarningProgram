@@ -81,12 +81,7 @@ public class GameManagerH : MonoBehaviour
 
     }
 
-  /*  private void Awake()
-    {
-        height = 2 * Camera.main.orthographicSize;
-        width = height * Camera.main.aspect;
-
-    }*/
+  
 
 
     void Start()
