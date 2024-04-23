@@ -11,8 +11,9 @@ public class PanelOpener : MonoBehaviour
     public GameObject panel;
 
     public TMP_Text resultText;
-    public string buttonName;
+    private string buttonName;
     public int correctIndex;
+    public List<GameObject> pics; 
 
     public void OpenPanel() {
         if (panel != null) {
@@ -31,15 +32,23 @@ public class PanelOpener : MonoBehaviour
     {
         int num = correctIndex;        Debug.Log(buttonIndex + "unityindex");
         Debug.Log(correctIndex + "correctIndex?");
+        GameObject correct = pics[0];
+        GameObject wrong = pics[1];
 
-        if (buttonIndex == num)
-        {
-
+        correct.SetActive(false);
+        wrong.SetActive(false);
+        
+        if (buttonIndex == num) { 
+            
+            correct = pics[0];
+             correct.SetActive(true);
             resultText.text = "せいかいです◎";
 
         }
         else
         {
+           wrong = pics[1];
+            wrong.SetActive(true);
             resultText.text = "まちがっています×！";
         }
 

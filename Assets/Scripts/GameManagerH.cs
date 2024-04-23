@@ -108,12 +108,11 @@ public class GameManagerH : MonoBehaviour
 
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
-        Debug.Log(height);
+      
         scaler.scaleFactor = height / 1080;
-        Debug.Log(scaler.scaleFactor);
-        RectTransform rect = this.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(width, height);
-        Debug.Log(height);
+      
+       
+      
 
     
     }
