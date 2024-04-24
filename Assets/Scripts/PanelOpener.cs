@@ -30,8 +30,8 @@ public class PanelOpener : MonoBehaviour
 
     public void OnClick(int buttonIndex)
     {
-        int num = correctIndex;        Debug.Log(buttonIndex + "unityindex");
-        Debug.Log(correctIndex + "correctIndex?");
+        int num = correctIndex;        
+        
         GameObject correct = pics[0];
         GameObject wrong = pics[1];
 
