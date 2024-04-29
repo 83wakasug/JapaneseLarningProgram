@@ -26,10 +26,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get references to the Transform, SpriteRenderer, and Rigidbody2D components
 
         transform1 = GetComponent<Transform>();
         sr = GetComponent<SpriteRenderer>();
+        // Get the screen width
         screenWidth = Screen.width;
+
+        // Calculate the minimum and maximum X positions based on the screen width and sprite size
         minX = -GameManager4.instance.width / 2 + sr.size.x / 2;
         maxX = GameManager4.instance.width / 2 - sr.size.x / 2;
         rb = GetComponent<Rigidbody2D>();
@@ -58,6 +62,7 @@ public class PlayerController : MonoBehaviour
             }
             else {
 
+                // If the GameObject reaches the left boundary, stop its movement and reset its position
                 transform.position = new Vector2(minX, transform.position.y);
 
                 rb.velocity = Vector2.zero;
@@ -68,21 +73,25 @@ public class PlayerController : MonoBehaviour
 
             if (transform.position.x <= maxX)
             {
+                // Move the GameObject to the left by subtracting the speed from its x position
                 rb.AddForce(new Vector2(speed2, 0));
-                
+
+                // Flip the GameObject's sprite horizontally
                 GetComponent<SpriteRenderer>().flipX = true;
 
             }
             else
             {
+                // If the GameObject reaches the right boundary, stop its movement and reset its position
                 transform.position = new Vector2(maxX, transform.position.y);
                 rb.velocity = Vector2.zero;
 
             }
         }
-        else{ 
-            
-           rb.velocity = Vector2.zero;
+        else{
+
+            // If neither left nor right arrow key is pressed, stop the GameObject's movement
+            rb.velocity = Vector2.zero;
 
          }
     }
