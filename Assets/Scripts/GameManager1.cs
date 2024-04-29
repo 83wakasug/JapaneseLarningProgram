@@ -18,6 +18,9 @@ public CanvasScaler scaler;
 
 List<string> hiragana = new List<string>();
 List<string> katakana = new List<string>();
+    
+    
+    // Populate the list with hiragana characters
     public void HiraganaList()
     {
 
@@ -78,6 +81,8 @@ List<string> katakana = new List<string>();
         hiragana.Add("");
 
     }
+
+    // Populate the list with katakana characters
     public void KatakanaList()
     {
 
@@ -144,10 +149,12 @@ List<string> katakana = new List<string>();
 
     void Start()
     {
+        // Initialize the AudioSource component
         soundPlayer = GetComponent<AudioSource>();
         KatakanaList();
-      
-        
+
+
+        // Instantiate buttons for each katakana character
 
         for (int i = 0; i<katakana.Count; i++)
         {
@@ -161,12 +168,18 @@ List<string> katakana = new List<string>();
         }
 
     }
+
+    // Method to adjust the size of the UI elements
     public void settingupSize()
     {
+        // Get the width and height of the screen resolution
 
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
+        // Set the scale factor of the canvas scaler
         scaler.scaleFactor = height / 1080;
+
+        // Set the size of the RectTransform component
 
         RectTransform rect = this.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(width, height);
@@ -174,24 +187,23 @@ List<string> katakana = new List<string>();
 
     }
 
+    // Method called when a button is clicked
     void OnButtonClick(int index)
     {
        
 
-        SoundController(index);  // SoundPlayerから音声を再生する
+        SoundController(index);   // Play the sound corresponding to the button
     }
 
+    // Method to play the audio clip
     public void SoundController(int index)
     {
         AudioClip sound = sounds[index];
         PlaySound(sound);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+
+    // Method to play the audio clip
     public void PlaySound(AudioClip audio)
     {
         soundPlayer.clip = audio;

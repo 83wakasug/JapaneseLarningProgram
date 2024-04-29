@@ -13,8 +13,9 @@ public class PanelOpener : MonoBehaviour
     public TMP_Text resultText;
     private string buttonName;
     public int correctIndex;
-    public List<GameObject> pics; 
+    public List<GameObject> pics;
 
+    // Method to open or close the panel
     public void OpenPanel() {
         if (panel != null) {
             bool isActive = panel.activeSelf;
@@ -23,11 +24,13 @@ public class PanelOpener : MonoBehaviour
         }
     }
 
+    // Method to set the index of the correct answer
     public void setCorrectIndex(int index) {
         correctIndex = index;
      
     }
 
+    // Method called when a button is clicked
     public void OnClick(int buttonIndex)
     {
         int num = correctIndex;        

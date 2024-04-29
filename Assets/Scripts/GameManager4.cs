@@ -90,11 +90,15 @@ public class GameManager4 : MonoBehaviour
 
             GameObject obj=Instantiate(fallingObjects, GetSpawnLocation(), Quaternion.identity);
             int count = 0;
-            if (count <= 5) {
+            if (count == 4)
+            {
                 obj.GetComponent<ShowTextonButton>().setText(list[answerIndex]);
                 count = 0;
             }
-            obj.GetComponent<ShowTextonButton>().setText(list[index]);
+            else
+            {
+                obj.GetComponent<ShowTextonButton>().setText(list[index]);
+            }
 
             count = count + 1;
            

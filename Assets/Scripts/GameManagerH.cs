@@ -86,33 +86,42 @@ public class GameManagerH : MonoBehaviour
 
     void Start()
     {
+        // Get the AudioSource component attached to the GameObject
         soundPlayer = GetComponent<AudioSource>();
         HiraganaList();
 
-
+        // Instantiate buttons for each hiragana character
 
         for (int i = 0; i < hiragana.Count; i++)
         {
+            // Create a new button instance based on the Box prefab
             GameObject button = Instantiate(Box, parentObject.GetComponent<RectTransform>());
+
+            // Set the text of the button using the ShowTextonButton component
             button.GetComponent<ShowTextonButton>().setText(hiragana[i]);
             int index = i;
+
+            // Remove all previous click listeners from the button
             button.GetComponent<Button>().onClick.RemoveAllListeners();
+            // Add a new click listener to the button
+            // This listener calls the OnButtonClick method with the captured index value when the button is clicked
             button.GetComponent<Button>().onClick.AddListener(() => { OnButtonClick(index); });
 
 
         }
+        // Call the method to set up the size of the UI elements
         settingupSize();
     }
 
     public void settingupSize() {
 
+        // Get the width and height of the screen resolution
         int width = Screen.currentResolution.width;
         int height = Screen.currentResolution.height;
-      
+
+        // Set the scale factor of the CanvasScaler component based on the screen height
+
         scaler.scaleFactor = height / 1080;
-      
-       
-      
 
     
     }
@@ -120,24 +129,24 @@ public class GameManagerH : MonoBehaviour
     void OnButtonClick(int index)
     {
 
-
-        SoundController(index);  // SoundPlayerから音声を再生する
+        SoundController(index);  // Play sound from soundPlayer
     }
-
+    // Plays the audio clip corresponding to the given index from the sounds list
     public void SoundController(int index)
     {
+        // Get the audio clip at the specified index from the sounds list
         AudioClip sound = sounds[index];
+        // Call the PlaySound method to play the audio clip
         PlaySound(sound);
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+ 
 
     public void PlaySound(AudioClip audio)
     {
+        // Sets the audio clip of the sound player to the provided audio clip and plays it
         soundPlayer.clip = audio;
+
+        // Play the audio clip
         soundPlayer.Play();
     }
 }

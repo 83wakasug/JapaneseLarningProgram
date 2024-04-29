@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
        
         
         float speed2 = speed * (screenWidth / 1920);
-        Debug.Log(speed2+"speed2");
+      
         
         // Move the GameObject to the left if the left arrow key is pressed
         if (Input.GetKey("left"))

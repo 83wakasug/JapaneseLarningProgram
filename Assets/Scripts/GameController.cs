@@ -25,7 +25,11 @@ public class GameController : MonoBehaviour
     public CanvasScaler scaler;
     // Start is called before the first frame update
     void Start(){
+
+        // Initialize the hiragana and katakana list
         HiraKatanaList();
+
+        // Set up initial values and UI size
         setUpValues();
         settingupSize();
 
@@ -35,6 +39,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Reset values and UI size if space key is pressed
         if (Input.GetKeyDown(KeyCode.Space)) {
             setUpValues();
         }
@@ -43,6 +48,7 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        // Ensure only one instance of GameController exists
         if (GameController.instans != null)
         {
             Destroy(gameObject);
@@ -51,6 +57,8 @@ public class GameController : MonoBehaviour
 
 
     }
+    
+    // Set up the size of UI elements based on screen resolution
 
     public void settingupSize()
     {
@@ -64,6 +72,8 @@ public class GameController : MonoBehaviour
 
 
     }
+
+    // Initialize the dictionary containing hiragana and katakana mappings
 
     public Dictionary<string, string> HiraKatanaList()
     {
@@ -130,7 +140,7 @@ public class GameController : MonoBehaviour
         return hiragana;
     }
 
-
+    // Create a list of random katakana characters
     public HashSet<string> setKatakanaList(int count)
     {
 
@@ -149,6 +159,7 @@ public class GameController : MonoBehaviour
        return list;
     }
 
+    // Set the correct answer and choices for the current hiragana character
     public int SetAnswer()
     {
         string answer = hiraganaKatakanaList[hiragana];
@@ -158,12 +169,12 @@ public class GameController : MonoBehaviour
 
         if (katakanaList.Contains(answer))
         {
-            // 正解が含まれている場合、そのインデックスを取得
-            index = katakanaList.IndexOf(answer);
+            // If the correct answer is included, get its index.
+                        index = katakanaList.IndexOf(answer);
         }
         else
         {
-            // 正解が含まれていない場合、ランダムなインデックスに正解をセット
+            // If the correct answer is not included, set it to a random index.
             int randomIndex = UnityEngine.Random.Range(0, katakanaList.Count);
             katakanaList[randomIndex] = answer;
 
@@ -176,6 +187,7 @@ public class GameController : MonoBehaviour
         
     }
 
+    // Set up the values for the UI elements
     public void setUpValues() {
         getRandomHiragana(hiraganaKatakanaList.Count);
         setKatakanaList(hiraganaKatakanaList.Count);
