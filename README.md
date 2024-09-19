@@ -1,4 +1,4 @@
-# ExamensArbete
+# JapaneseLarningProgram
 
 
 # 🌸 Kawaii Kana Learning Program 🎮
